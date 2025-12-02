@@ -1,4 +1,4 @@
-# cis1702-cw2
+# CIS1702-Group-28
 
 This is the API Data Analyser group project group completed by Omar, Muhammad, Liam, and Daniels
 
