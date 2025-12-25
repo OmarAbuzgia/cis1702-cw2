@@ -1,0 +1,60 @@
+# IMPORTS
+
+import json
+from datetime import datetime
+import urllib.request
+import urllib.error
+
+# API FUNCTIONS
+
+def fetch_weather_data(latitude, longitude):
+    """
+    Fetch current weather data from API.
+    Return parsed JSON data as a dictionary or None if error occurs.
+    """
+    url = (
+        f"https://api.open-meteo.com/v1/forecast?"
+        f"latitude={latitude}&longitude={longitude}&current_weather=true"
+    )
+
+    try:
+        with urllib.request.urlopen(url) as response:
+            data = response.read()
+            return json.loads(data)
+
+    except urllib.error.URLError:
+        print("\n Network error: Could not reach the weather service.\n")
+    except json.JSONDecodeError:
+        print("\n Error: Received invalid JSON from API.\n")
+    
+    return None
+
+# DATA PROCESSING
+
+def extract_weather_info(weather_data):
+    """
+    Extracts temperature, windspeed, wind direction, and time from the API response.
+    Also calculates the "feels-like difference".
+    """
+    try:
+        current = weather_data["current_weather"]
+
+        temperature = current["temperature"]
+        windspeed = current["windspeed"]
+        wind_direction = current["winddirection"]
+        timestamp = current["time"]
+
+        # Simple analysis: Difference in "feels-like" temperature due to wind
+        feels_like_difference = round((windspeed * 0.1), 2)
+
+        return {
+            "temperature": temperature,
+            "windspeed": windspeed,
+            "wind_direction": wind_direction,
+            "timestamp": timestamp,
+            "feels_like_difference": feels_like_difference
+        }
+
+    except KeyError:
+        print("\n Error: Missing expected data in API response.\n")
+        return None
