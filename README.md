@@ -8,3 +8,5 @@ We intend to do this by implementing requests in our Python program so we can fe
 
 Omar and Muhammad have created early stage plans for this project, including pseudocode and flowhcarts that express the path that we want this program to take, and the features that it will end up having, this helped to visualise our goals and set them in place.
 
+Daniels and Muhammad were responsible for the code, with Daniels self testing it his own code and fixing any errors he made, with Muhammad writing the other portion of code that was left, his code was tested and improved by Daniels.
+
